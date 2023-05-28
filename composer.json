@@ -1,0 +1,56 @@
+{
+    "name": "fabricio872/easy-rss-bundle",
+    "description": "Symfony bundle for managing RSS feed just add items and set limits and bundle handles storing items and deleting old ones automatically.",
+    "type": "symfony-bundle",
+    "require": {
+        "symfony/http-kernel": "^6.1",
+        "symfony/yaml": "^6.1",
+        "symfony/event-dispatcher": "^6.1",
+        "symfony/event-dispatcher-contracts": "^3.1",
+        "symfony/twig-bundle": "^6.1",
+        "symfony/serializer": "^6.1",
+        "doctrine/collections": "^2.1",
+        "symfony/orm-pack": "^2.3"
+    },
+    "require-dev": {
+        "rector/rector": "^0.15.24",
+        "symplify/easy-coding-standard": "^11.3",
+        "phpstan/extension-installer": "^1.2",
+        "phpstan/phpstan": "^1.10"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Fabricio872\\EasyRssBundle\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Fabricio",
+            "email": "fabricio872@gmail.com"
+        }
+    ],
+    "scripts": {
+        "cs": [
+            "@ecs",
+            "@rector",
+            "@phpstan"
+        ],
+        "cs-fix": [
+            "@ecs-fix",
+            "@rector-fix"
+        ],
+        "ecs": "vendor/bin/ecs check",
+        "ecs-fix": "vendor/bin/ecs check --fix",
+        "rector": "vendor/bin/rector process --dry-run",
+        "rector-fix": "vendor/bin/rector process",
+        "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon",
+        "phpunit": "vendor/phpunit/phpunit/phpunit"
+    },
+    "minimum-stability": "stable",
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    }
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Explicitly configure the service -->
+
+        <service id="fabricio872_easy_rss.easy_rss"
+                 class="Fabricio872\EasyRssBundle\EasyRss"
+                 public="true" autowire="true">
+            <tag name="twig.runtime"/>
+        </service>
+
+        <service id="Fabricio872\EasyRssBundle\EasyRss"
+                 alias="fabricio872_easy_rss.easy_rss"
+                 public="false"/>
+
+    </services>
+</container>
