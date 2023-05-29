@@ -16,6 +16,15 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('max_feeds')->defaultValue(10)->info('Maximum feeds that would be stored. (0 to unlimited)')->end()
+//                ->scalarNode('ttl_feed')->defaultValue('')->info('Time interval value for how long feed should live e.g. "1 month", "1 week", etc. (empty for unlimited)')->end()
+                ->arrayNode('feeds')
+                        ->arrayPrototype()
+                        ->children()
+                            ->scalarNode('name')->defaultValue('default')->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;

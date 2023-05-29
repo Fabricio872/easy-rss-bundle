@@ -10,11 +10,28 @@
         <service id="fabricio872_easy_rss.easy_rss"
                  class="Fabricio872\EasyRssBundle\EasyRss"
                  public="true" autowire="true">
-            <tag name="twig.runtime"/>
         </service>
 
         <service id="Fabricio872\EasyRssBundle\EasyRss"
                  alias="fabricio872_easy_rss.easy_rss"
+                 public="false"/>
+
+        <service id="fabricio872_easy_rss.service.rss_service"
+                 class="Fabricio872\EasyRssBundle\Service\RssService"
+                 public="true" autowire="true">
+        </service>
+
+        <service id="Fabricio872\EasyRssBundle\Service\RssService"
+                 alias="fabricio872_easy_rss.service.rss_service"
+                 public="false"/>
+
+        <service id="fabricio872_easy_rss.service.db_service"
+                 class="Fabricio872\EasyRssBundle\Service\DbService"
+                 public="true" autowire="true">
+        </service>
+
+        <service id="Fabricio872\EasyRssBundle\Service\DbService"
+                 alias="fabricio872_easy_rss.service.db_service"
                  public="false"/>
 
     </services>

@@ -24,7 +24,6 @@ class EasyRssExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $serviceDefinition = $container->getDefinition('fabricio872_easy_rss.easy_rss');
-//        $serviceDefinition->setArgument(0, $config['path']);
-//        $serviceDefinition->setArgument(1, $config['default_language']);
+        $serviceDefinition->setArgument(0, $config['max_feeds']);
     }
 }
