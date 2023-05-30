@@ -16,7 +16,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('max_feeds')->defaultValue(10)->info('Maximum feeds that would be stored. (0 to unlimited)')->end()
+            ->scalarNode('max_feeds')->defaultValue(10)->info('Maximum feeds that would be stored. (0 to unlimited)')->end()
             ->end();
 
         return $treeBuilder;

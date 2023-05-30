@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabricio872\EasyRssBundle\Service;
 
 use Markocupic\RssFeedGeneratorBundle\Feed\Feed;
@@ -10,12 +12,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RssService
 {
-    private Feed $rss;
+    private readonly Feed $rss;
 
     public function __construct(
-        private FeedFactory $feedFactory
-    )
-    {
+        private readonly FeedFactory $feedFactory
+    ) {
         // Use the feed factory to generate the feed object
         $this->rss = $this->feedFactory->createFeed(Feed::ENCODING_UTF8);
 
@@ -26,10 +27,6 @@ class RssService
         ]);
     }
 
-    /**
-     * @param string $title
-     * @return RssService
-     */
     public function setTitle(string $title): RssService
     {
         $this->rss->setChannelAttributes(
@@ -43,10 +40,6 @@ class RssService
         return $this;
     }
 
-    /**
-     * @param string $link
-     * @return RssService
-     */
     public function setLink(string $link): RssService
     {
         $this->rss->setChannelAttributes(
@@ -60,10 +53,6 @@ class RssService
         return $this;
     }
 
-    /**
-     * @param string $description
-     * @return RssService
-     */
     public function setDescription(string $description): RssService
     {
         $this->rss->setChannelAttributes(
@@ -77,10 +66,6 @@ class RssService
         return $this;
     }
 
-    /**
-     * @param ItemGroup ...$items
-     * @return void
-     */
     public function setItems(ItemGroup ...$items): RssService
     {
         foreach ($items as $item) {

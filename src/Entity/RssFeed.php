@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabricio872\EasyRssBundle\Entity;
 
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Fabricio872\EasyRssBundle\Exceptions\NotSetException;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Component\Uid\Uuid;
-use Symfony\Component\Uid\UuidV4;
 
 #[ORM\Entity]
 class RssFeed
@@ -27,18 +30,22 @@ class RssFeed
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+    private ?DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?Uuid
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
+        if (! $this->title) {
+            throw new NotSetException('$this->title');
+        }
+
         return $this->title;
     }
 
@@ -61,8 +68,12 @@ class RssFeed
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
+        if (! $this->description) {
+            throw new NotSetException('$this->description');
+        }
+
         return $this->description;
     }
 
@@ -73,24 +84,32 @@ class RssFeed
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): DateTimeImmutable
     {
+        if (! $this->createdAt) {
+            throw new NotSetException('$this->createdAt');
+        }
+
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): DateTimeImmutable
     {
+        if (! $this->updatedAt) {
+            throw new NotSetException('$this->updatedAt');
+        }
+
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 

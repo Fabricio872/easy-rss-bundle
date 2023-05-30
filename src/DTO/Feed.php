@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabricio872\EasyRssBundle\DTO;
 
 class Feed implements FeedInterface
 {
     private string $title;
+
     private ?string $category = null;
+
     private string $description;
 
     public function getTitle(): string

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabricio872\EasyRssBundle\Service;
 
 use DateTimeImmutable;
@@ -10,12 +12,11 @@ use Fabricio872\EasyRssBundle\Entity\RssFeed;
 class DbService
 {
     public function __construct(
-        private EntityManagerInterface $em
-    )
-    {
+        private readonly EntityManagerInterface $em
+    ) {
     }
 
-    public function add(FeedInterface $feed)
+    public function add(FeedInterface $feed): self
     {
         $feedEntity = new RssFeed();
         $feedEntity
@@ -26,11 +27,13 @@ class DbService
             ->setUpdatedAt(new DateTimeImmutable());
 
         $this->em->persist($feedEntity);
+
+        return $this;
     }
 
     public function clean(?string $category, ?int $maxFeeds): void
     {
-        if (!$maxFeeds) {
+        if (! $maxFeeds) {
             return;
         }
 

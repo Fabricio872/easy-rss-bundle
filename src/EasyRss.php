@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabricio872\EasyRssBundle;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,12 +16,11 @@ use Symfony\Component\HttpFoundation\Response;
 class EasyRss
 {
     public function __construct(
-        private int                    $maxFeeds,
-        private DbService              $dbService,
-        private RssService             $rssService,
-        private EntityManagerInterface $em
-    )
-    {
+        private int $maxFeeds,
+        private readonly DbService $dbService,
+        private readonly RssService $rssService,
+        private readonly EntityManagerInterface $em
+    ) {
     }
 
     public function setMaxFeeds(int $maxFeeds): self
@@ -46,7 +47,7 @@ class EasyRss
         return $this->rssService->getResponse();
     }
 
-    private function buildItemGroups(string $category)
+    private function buildItemGroups(string $category): void
     {
         $feeds = $this->em->getRepository(RssFeed::class)->findBy(['category' => $category]);
 
@@ -57,7 +58,7 @@ class EasyRss
                 new Item('description', $feed->getDescription(), ['cdata' => true]),
                 new Item('pubDate', $feed->getCreatedAt()->format('r')),
                 new Item('author', 'author'),
-                new Item('guid', $feed->getId()),
+                new Item('guid', (string) $feed->getId()),
                 new Item('tourdb:startdate', $feed->getCreatedAt()->format('Y-m-d')),
                 new Item('tourdb:enddate', $feed->getUpdatedAt()->format('Y-m-d')),
             ]));
