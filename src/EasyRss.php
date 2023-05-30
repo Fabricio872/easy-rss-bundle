@@ -22,6 +22,13 @@ class EasyRss
     {
     }
 
+    public function setMaxFeeds(int $maxFeeds): self
+    {
+        $this->maxFeeds = $maxFeeds;
+
+        return $this;
+    }
+
     public function add(FeedInterface $feed): self
     {
         $this->dbService->add($feed);

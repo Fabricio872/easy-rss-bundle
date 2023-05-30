@@ -92,20 +92,6 @@ class RssService
 
     public function getResponse(): Response
     {
-
-//        $rss->addChannelItemField(
-//            new ItemGroup('item', [
-//                new Item('title', 'title'),
-//                new Item('link', 'link'),
-//                new Item('description', 'description', ['cdata' => true]),
-//                new Item('pubDate', (new \DateTime())->format('r')),
-//                new Item('author', 'author'),
-//                new Item('guid', new Uuid('80107532-6b78-45db-af58-ca56d46696fb')),
-//                new Item('tourdb:startdate', (new \DateTime())->format('Y-m-d')),
-//                new Item('tourdb:enddate', (new \DateTime())->format('Y-m-d')),
-//            ])
-//        );
-
         return $this->rss->render();
     }
 }
