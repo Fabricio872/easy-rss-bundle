@@ -8,7 +8,7 @@ interface FeedInterface
 {
     public function getTitle(): string;
 
-    public function getCategory(): ?string;
+    public function getChannel(): ?string;
 
     public function getDescription(): string;
 }

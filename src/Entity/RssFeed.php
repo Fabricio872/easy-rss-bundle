@@ -24,7 +24,7 @@ class RssFeed
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $category = null;
+    private ?string $channel = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
@@ -56,14 +56,14 @@ class RssFeed
         return $this;
     }
 
-    public function getCategory(): ?string
+    public function getChannel(): ?string
     {
-        return $this->category;
+        return $this->channel;
     }
 
-    public function setCategory(string $category): self
+    public function setChannel(string $channel): self
     {
-        $this->category = $category;
+        $this->channel = $channel;
 
         return $this;
     }

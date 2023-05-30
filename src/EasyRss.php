@@ -33,23 +33,23 @@ class EasyRss
     public function add(FeedInterface $feed): self
     {
         $this->dbService->add($feed);
-        $this->dbService->clean($feed->getCategory(), $this->maxFeeds ?? null);
+        $this->dbService->clean($feed->getChannel(), $this->maxFeeds ?? null);
         $this->em->flush();
 
         return $this;
     }
 
-    public function getResponse(string $title, string $category = 'default'): Response
+    public function getResponse(string $title, string $channel = 'default'): Response
     {
         $this->rssService->setTitle($title);
-        $this->buildItemGroups($category);
+        $this->buildItemGroups($channel);
 
         return $this->rssService->getResponse();
     }
 
-    private function buildItemGroups(string $category): void
+    private function buildItemGroups(string $channel): void
     {
-        $feeds = $this->em->getRepository(RssFeed::class)->findBy(['category' => $category]);
+        $feeds = $this->em->getRepository(RssFeed::class)->findBy(['channel' => $channel]);
 
         foreach ($feeds as $feed) {
             $this->rssService->setItems(new ItemGroup('item', [

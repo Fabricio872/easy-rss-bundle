@@ -22,7 +22,7 @@ class DbService
         $feedEntity
             ->setTitle($feed->getTitle())
             ->setDescription($feed->getDescription())
-            ->setCategory($feed->getCategory() ?? 'default')
+            ->setChannel($feed->getChannel() ?? 'default')
             ->setCreatedAt(new DateTimeImmutable())
             ->setUpdatedAt(new DateTimeImmutable());
 
@@ -31,7 +31,7 @@ class DbService
         return $this;
     }
 
-    public function clean(?string $category, ?int $maxFeeds): void
+    public function clean(?string $channel, ?int $maxFeeds): void
     {
         if (! $maxFeeds) {
             return;
@@ -41,8 +41,8 @@ class DbService
             ->select('r')
             ->from(RssFeed::class, 'r')
             ->orderBy('r.updatedAt', 'DESC')
-            ->andWhere('r.category = :category')
-            ->setParameter('category', $category ?? 'default')
+            ->andWhere('r.channel = :channel')
+            ->setParameter('channel', $channel ?? 'default')
             ->setFirstResult($maxFeeds);
 
         foreach ($qb->getQuery()->getResult() as $feedToDelete) {

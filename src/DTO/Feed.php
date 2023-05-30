@@ -8,7 +8,7 @@ class Feed implements FeedInterface
 {
     private string $title;
 
-    private ?string $category = null;
+    private ?string $channel = null;
 
     private string $description;
 
@@ -23,14 +23,14 @@ class Feed implements FeedInterface
         return $this;
     }
 
-    public function getCategory(): ?string
+    public function getChannel(): ?string
     {
-        return $this->category;
+        return $this->channel;
     }
 
-    public function setCategory(?string $category): Feed
+    public function setChannel(?string $channel): Feed
     {
-        $this->category = $category;
+        $this->channel = $channel;
         return $this;
     }
 
