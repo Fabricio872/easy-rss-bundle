@@ -6,6 +6,7 @@ namespace Fabricio872\EasyRssBundle\Service;
 
 use Markocupic\RssFeedGeneratorBundle\Feed\Feed;
 use Markocupic\RssFeedGeneratorBundle\Feed\FeedFactory;
+use Markocupic\RssFeedGeneratorBundle\Formatter\Formatter;
 use Markocupic\RssFeedGeneratorBundle\Item\Item;
 use Markocupic\RssFeedGeneratorBundle\Item\ItemGroup;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,10 +14,17 @@ use Symfony\Component\HttpFoundation\Response;
 class RssService
 {
     private readonly Feed $rss;
+    private readonly FeedFactory $feedFactory;
 
-    public function __construct(
-        private readonly FeedFactory $feedFactory
-    ) {
+    public function __construct()
+    {
+        $formatter = new Formatter([
+            '/[\n\r]+/' => ' ',
+            '/\[nbsp\]/' => ' ',
+            '/&nbsp;/' => ' '
+        ]);
+        $this->feedFactory = new FeedFactory($formatter);
+
         // Use the feed factory to generate the feed object
         $this->rss = $this->feedFactory->createFeed(Feed::ENCODING_UTF8);
 
