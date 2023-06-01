@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 class RssService
 {
     private readonly Feed $rss;
+
     private readonly FeedFactory $feedFactory;
 
     public function __construct()

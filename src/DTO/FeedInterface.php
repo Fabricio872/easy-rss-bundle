@@ -10,5 +10,7 @@ interface FeedInterface
 
     public function getChannel(): ?string;
 
+    public function getAuthor(): string;
+
     public function getDescription(): string;
 }

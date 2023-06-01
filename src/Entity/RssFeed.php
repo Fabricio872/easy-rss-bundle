@@ -26,6 +26,9 @@ class RssFeed
     #[ORM\Column(length: 255)]
     private ?string $channel = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $author = null;
+
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
@@ -65,6 +68,21 @@ class RssFeed
     {
         $this->channel = $channel;
 
+        return $this;
+    }
+
+    public function getAuthor(): string
+    {
+        if (! $this->author) {
+            throw new NotSetException('$this->author');
+        }
+
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): RssFeed
+    {
+        $this->author = $author;
         return $this;
     }
 

@@ -10,6 +10,8 @@ class Feed implements FeedInterface
 
     private ?string $channel = null;
 
+    private string $author;
+
     private string $description;
 
     public function getTitle(): string
@@ -31,6 +33,20 @@ class Feed implements FeedInterface
     public function setChannel(?string $channel): Feed
     {
         $this->channel = $channel;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthor(): string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): Feed
+    {
+        $this->author = $author;
         return $this;
     }
 

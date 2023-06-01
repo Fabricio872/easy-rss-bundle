@@ -57,7 +57,7 @@ class EasyRss
                 new Item('link', 'link'),
                 new Item('description', $feed->getDescription(), ['cdata' => true]),
                 new Item('pubDate', $feed->getCreatedAt()->format('r')),
-                new Item('author', 'author'),
+                new Item('author', $feed->getAuthor()),
                 new Item('guid', (string) $feed->getId()),
                 new Item('tourdb:startdate', $feed->getCreatedAt()->format('Y-m-d')),
                 new Item('tourdb:enddate', $feed->getUpdatedAt()->format('Y-m-d')),
