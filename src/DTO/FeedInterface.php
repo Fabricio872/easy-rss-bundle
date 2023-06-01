@@ -12,5 +12,7 @@ interface FeedInterface
 
     public function getAuthor(): string;
 
+    public function getLink(): string;
+
     public function getDescription(): string;
 }

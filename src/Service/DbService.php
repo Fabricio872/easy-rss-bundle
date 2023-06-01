@@ -24,6 +24,7 @@ class DbService
             ->setDescription($feed->getDescription())
             ->setChannel($feed->getChannel() ?? 'default')
             ->setAuthor($feed->getAuthor())
+            ->setLink($feed->getLink())
             ->setCreatedAt(new DateTimeImmutable())
             ->setUpdatedAt(new DateTimeImmutable());
 

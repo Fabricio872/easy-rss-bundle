@@ -12,6 +12,8 @@ class Feed implements FeedInterface
 
     private string $author;
 
+    private string $link;
+
     private string $description;
 
     public function getTitle(): string
@@ -36,9 +38,6 @@ class Feed implements FeedInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getAuthor(): string
     {
         return $this->author;
@@ -47,6 +46,17 @@ class Feed implements FeedInterface
     public function setAuthor(string $author): Feed
     {
         $this->author = $author;
+        return $this;
+    }
+
+    public function getLink(): string
+    {
+        return $this->link;
+    }
+
+    public function setLink(string $link): Feed
+    {
+        $this->link = $link;
         return $this;
     }
 

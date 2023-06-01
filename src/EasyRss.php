@@ -54,7 +54,7 @@ class EasyRss
         foreach ($feeds as $feed) {
             $this->rssService->setItems(new ItemGroup('item', [
                 new Item('title', $feed->getTitle()),
-                new Item('link', 'link'),
+                new Item('link', $feed->getLink()),
                 new Item('description', $feed->getDescription(), ['cdata' => true]),
                 new Item('pubDate', $feed->getCreatedAt()->format('r')),
                 new Item('author', $feed->getAuthor()),

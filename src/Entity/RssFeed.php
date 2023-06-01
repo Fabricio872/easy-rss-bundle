@@ -29,6 +29,9 @@ class RssFeed
     #[ORM\Column(length: 255)]
     private ?string $author = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $link = null;
+
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
@@ -83,6 +86,21 @@ class RssFeed
     public function setAuthor(string $author): RssFeed
     {
         $this->author = $author;
+        return $this;
+    }
+
+    public function getLink(): string
+    {
+        if (! $this->link) {
+            throw new NotSetException('$this->link');
+        }
+
+        return $this->link;
+    }
+
+    public function setLink(string $link): RssFeed
+    {
+        $this->link = $link;
         return $this;
     }
 
