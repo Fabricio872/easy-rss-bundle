@@ -6,6 +6,7 @@ namespace Fabricio872\EasyRssBundle\Service;
 
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityNotFoundException;
 use Fabricio872\EasyRssBundle\DTO\Feed;
 use Fabricio872\EasyRssBundle\DTO\FeedInterface;
 use Fabricio872\EasyRssBundle\Entity\RssFeed;
@@ -17,19 +18,21 @@ class DbStorage implements RssStorageInterface
 {
     public function __construct(
         private readonly EntityManagerInterface $em,
-        private DenormalizerInterface $denormalizer,
-        private NormalizerInterface $normalizer
-    )
-    {
+        private readonly DenormalizerInterface $denormalizer,
+        private readonly NormalizerInterface $normalizer
+    ) {
     }
 
     public function add(FeedInterface $feed, ?Uuid $id = null): Feed
     {
-        if (!$id) {
+        if (! $id) {
             $feedEntity = new RssFeed();
             $feedEntity->setCreatedAt(new DateTimeImmutable());
         } else {
             $feedEntity = $this->em->getRepository(RssFeed::class)->find($id);
+            if (! $feedEntity) {
+                throw new EntityNotFoundException(sprintf('Uuid "%s" not found', $id));
+            }
         }
         $feedEntity
             ->setTitle($feed->getTitle())
@@ -46,7 +49,7 @@ class DbStorage implements RssStorageInterface
 
     public function clean(?string $channel, ?int $maxFeeds): void
     {
-        if (!$maxFeeds) {
+        if (! $maxFeeds) {
             return;
         }
 
@@ -70,7 +73,7 @@ class DbStorage implements RssStorageInterface
     public function all(): array
     {
         $entities = $this->em->getRepository(RssFeed::class)->findAll();
-        return $this->denormalizer->denormalize($this->normalizer->normalize($entities), Feed::class.'[]');
+        return $this->denormalizer->denormalize($this->normalizer->normalize($entities), Feed::class . '[]');
     }
 
     public function getById(Uuid $id): ?FeedInterface

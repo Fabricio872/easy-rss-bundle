@@ -8,7 +8,8 @@ use Symfony\Component\Uid\Uuid;
 
 class Feed implements FeedInterface
 {
-    private ?Uuid $id;
+    private ?Uuid $id = null;
+
     private string $title;
 
     private ?string $channel = null;
@@ -23,6 +24,7 @@ class Feed implements FeedInterface
     {
         return $this->id;
     }
+
     public function setId(?Uuid $id): Feed
     {
         $this->id = $id;
