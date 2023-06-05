@@ -31,12 +31,12 @@ class EasyRss
         return $this;
     }
 
-    public function add(FeedInterface $feed): self
+    public function add(FeedInterface $feed): FeedInterface
     {
-        $this->rssStorage->add($feed);
+        $feed = $this->rssStorage->add($feed);
         $this->rssStorage->clean($feed->getChannel(), $this->maxFeeds ?? null);
 
-        return $this;
+        return $feed;
     }
 
     public function update(Uuid $id, FeedInterface $feed): FeedInterface
