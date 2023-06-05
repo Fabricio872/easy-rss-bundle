@@ -23,15 +23,15 @@ class DbStorage implements RssStorageInterface
     ) {
     }
 
-    public function add(FeedInterface $feed, ?Uuid $id = null): Feed
+    public function persist(FeedInterface $feed): Feed
     {
-        if (! $id) {
+        if (! $feed->getId()) {
             $feedEntity = new RssFeed();
             $feedEntity->setCreatedAt(new DateTimeImmutable());
         } else {
-            $feedEntity = $this->em->getRepository(RssFeed::class)->find($id);
+            $feedEntity = $this->em->getRepository(RssFeed::class)->find($feed->getId());
             if (! $feedEntity) {
-                throw new EntityNotFoundException(sprintf('Uuid "%s" not found', $id));
+                throw new EntityNotFoundException(sprintf('Uuid "%s" not found', $feed->getId()));
             }
         }
         $feedEntity

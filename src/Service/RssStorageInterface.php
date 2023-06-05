@@ -9,7 +9,7 @@ use Symfony\Component\Uid\Uuid;
 
 interface RssStorageInterface
 {
-    public function add(FeedInterface $feed, ?Uuid $id = null): FeedInterface;
+    public function persist(FeedInterface $feed): FeedInterface;
 
     public function clean(?string $channel, ?int $maxFeeds): void;
 
