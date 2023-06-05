@@ -33,7 +33,7 @@ class EasyRss
 
     public function persist(FeedInterface $feed): FeedInterface
     {
-        $feed = $this->rssStorage->add($feed);
+        $feed = $this->rssStorage->persist($feed);
         $this->rssStorage->clean($feed->getChannel(), $this->maxFeeds ?? null);
 
         return $feed;
