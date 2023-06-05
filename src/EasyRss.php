@@ -7,17 +7,18 @@ namespace Fabricio872\EasyRssBundle;
 use Doctrine\ORM\EntityManagerInterface;
 use Fabricio872\EasyRssBundle\DTO\FeedInterface;
 use Fabricio872\EasyRssBundle\Entity\RssFeed;
-use Fabricio872\EasyRssBundle\Service\DbService;
 use Fabricio872\EasyRssBundle\Service\RssService;
+use Fabricio872\EasyRssBundle\Service\RssStorageInterface;
 use Markocupic\RssFeedGeneratorBundle\Item\Item;
 use Markocupic\RssFeedGeneratorBundle\Item\ItemGroup;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Uid\Uuid;
 
 class EasyRss
 {
     public function __construct(
         private int $maxFeeds,
-        private readonly DbService $dbService,
+        private readonly RssStorageInterface $rssStorage,
         private readonly RssService $rssService,
         private readonly EntityManagerInterface $em
     ) {
@@ -30,13 +31,25 @@ class EasyRss
         return $this;
     }
 
-    public function add(FeedInterface $feed): self
+    public function persist(FeedInterface $feed): FeedInterface
     {
-        $this->dbService->add($feed);
-        $this->dbService->clean($feed->getChannel(), $this->maxFeeds ?? null);
-        $this->em->flush();
+        $feed = $this->rssStorage->add($feed);
+        $this->rssStorage->clean($feed->getChannel(), $this->maxFeeds ?? null);
 
-        return $this;
+        return $feed;
+    }
+
+    /**
+     * @return array<int, FeedInterface>
+     */
+    public function getAllFeeds(): array
+    {
+        return $this->rssStorage->all();
+    }
+
+    public function getFeedById(Uuid $id): ?FeedInterface
+    {
+        return $this->rssStorage->getById($id);
     }
 
     public function getResponse(string $title, string $channel = 'default'): Response

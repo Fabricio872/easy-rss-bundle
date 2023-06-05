@@ -25,13 +25,13 @@
                  alias="fabricio872_easy_rss.service.rss_service"
                  public="false"/>
 
-        <service id="fabricio872_easy_rss.service.db_service"
-                 class="Fabricio872\EasyRssBundle\Service\DbService"
+        <service id="fabricio872_easy_rss.service.db_storage"
+                 class="Fabricio872\EasyRssBundle\Service\DbStorage"
                  public="true" autowire="true">
         </service>
 
-        <service id="Fabricio872\EasyRssBundle\Service\DbService"
-                 alias="fabricio872_easy_rss.service.db_service"
+        <service id="Fabricio872\EasyRssBundle\Service\RssStorageInterface"
+                 alias="fabricio872_easy_rss.service.db_storage"
                  public="false"/>
 
     </services>
